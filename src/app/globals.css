@@ -1,0 +1,348 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Carboy design tokens. See DESIGN.md.
+  Rule of the system: chrome is ink and paper. Colour appears only where it
+  encodes a hazard or a compliance status, plus one interactive blue.
+*/
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+  --font-heading: var(--font-plex-sans);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* the one interactive colour: links, focus, selected state */
+  --color-brand: var(--brand);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-foreground: var(--brand-foreground);
+
+  /* status: text tone, tinted background, border, and the solid mark colour */
+  --color-good: var(--good);
+  --color-good-bg: var(--good-bg);
+  --color-good-border: var(--good-border);
+  --color-good-solid: var(--good-solid);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-border: var(--warn-border);
+  --color-warn-solid: var(--warn-solid);
+  --color-serious: var(--serious);
+  --color-serious-bg: var(--serious-bg);
+  --color-serious-border: var(--serious-border);
+  --color-serious-solid: var(--serious-solid);
+  --color-critical: var(--critical);
+  --color-critical-bg: var(--critical-bg);
+  --color-critical-border: var(--critical-border);
+  --color-critical-solid: var(--critical-solid);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-border: var(--info-border);
+  --color-info-solid: var(--info-solid);
+
+  /* GHS pictogram frame red and NFPA 704 quadrants (fixed by the standards) */
+  --color-ghs: var(--ghs);
+  --color-nfpa-health: #2f6fd6;
+  --color-nfpa-fire: #d8362f;
+  --color-nfpa-instability: #f2c200;
+
+  /* chart series, fixed order, never cycled */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-neutral: var(--chart-neutral);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --shadow-pop: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.08);
+  --shadow-sheet: 0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.08);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* paper */
+  --background: oklch(0.998 0.001 250);
+  --foreground: oklch(0.21 0.022 258);
+  --card: oklch(0.998 0.001 250);
+  --card-foreground: oklch(0.21 0.022 258);
+  --popover: oklch(0.998 0.001 250);
+  --popover-foreground: oklch(0.21 0.022 258);
+  --subtle: oklch(0.982 0.003 252);
+  --muted: oklch(0.963 0.005 252);
+  --muted-foreground: oklch(0.47 0.02 258);
+  --accent: oklch(0.955 0.007 252);
+  --accent-foreground: oklch(0.21 0.022 258);
+  --secondary: oklch(0.955 0.007 252);
+  --secondary-foreground: oklch(0.24 0.025 258);
+  --border: oklch(0.915 0.007 255);
+  --border-strong: oklch(0.85 0.01 255);
+  --input: oklch(0.885 0.009 255);
+  --ring: oklch(0.56 0.16 257);
+
+  /* ink */
+  --primary: oklch(0.25 0.03 258);
+  --primary-foreground: oklch(0.985 0.003 250);
+  --destructive: oklch(0.53 0.2 25);
+
+  --brand: oklch(0.5 0.17 257);
+  --brand-bg: oklch(0.955 0.03 257);
+  --brand-foreground: oklch(0.985 0.003 250);
+
+  --good: oklch(0.45 0.13 148);
+  --good-bg: oklch(0.962 0.04 150);
+  --good-border: oklch(0.87 0.08 150);
+  --good-solid: #0ca30c;
+  --warn: oklch(0.47 0.11 72);
+  --warn-bg: oklch(0.967 0.055 92);
+  --warn-border: oklch(0.87 0.11 88);
+  --warn-solid: #e8a013;
+  --serious: oklch(0.5 0.15 45);
+  --serious-bg: oklch(0.96 0.035 55);
+  --serious-border: oklch(0.86 0.08 52);
+  --serious-solid: #ec835a;
+  --critical: oklch(0.49 0.19 25);
+  --critical-bg: oklch(0.96 0.028 22);
+  --critical-border: oklch(0.86 0.075 22);
+  --critical-solid: #d03b3b;
+  --info: oklch(0.47 0.15 257);
+  --info-bg: oklch(0.958 0.028 257);
+  --info-border: oklch(0.86 0.065 257);
+  --info-solid: #2a78d6;
+
+  --ghs: #d8262c;
+
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
+  --chart-3: #1baf7a;
+  --chart-4: #eda100;
+  --chart-5: #e87ba4;
+  --chart-6: #008300;
+  --chart-7: #6250d6;
+  --chart-8: #e34948;
+  --chart-grid: oklch(0.925 0.006 255);
+  --chart-neutral: oklch(0.78 0.012 255);
+
+  /* the app sits on a tinted desk; the content is the sheet of paper */
+  --sidebar: oklch(0.972 0.005 252);
+  --sidebar-foreground: oklch(0.3 0.025 258);
+  --sidebar-primary: oklch(0.25 0.03 258);
+  --sidebar-primary-foreground: oklch(0.985 0.003 250);
+  --sidebar-accent: oklch(0.935 0.009 252);
+  --sidebar-accent-foreground: oklch(0.21 0.022 258);
+  --sidebar-border: oklch(0.905 0.008 255);
+  --sidebar-ring: oklch(0.56 0.16 257);
+}
+
+.dark {
+  --background: oklch(0.185 0.012 258);
+  --foreground: oklch(0.95 0.006 250);
+  --card: oklch(0.185 0.012 258);
+  --card-foreground: oklch(0.95 0.006 250);
+  --popover: oklch(0.225 0.014 258);
+  --popover-foreground: oklch(0.95 0.006 250);
+  --subtle: oklch(0.205 0.013 258);
+  --muted: oklch(0.245 0.015 258);
+  --muted-foreground: oklch(0.72 0.018 255);
+  --accent: oklch(0.265 0.017 258);
+  --accent-foreground: oklch(0.95 0.006 250);
+  --secondary: oklch(0.265 0.017 258);
+  --secondary-foreground: oklch(0.95 0.006 250);
+  --border: oklch(1 0 0 / 9%);
+  --border-strong: oklch(1 0 0 / 17%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.66 0.15 257);
+
+  --primary: oklch(0.93 0.008 250);
+  --primary-foreground: oklch(0.2 0.02 258);
+  --destructive: oklch(0.7 0.18 24);
+
+  --brand: oklch(0.73 0.13 255);
+  --brand-bg: oklch(0.3 0.06 257);
+  --brand-foreground: oklch(0.18 0.02 258);
+
+  --good: oklch(0.79 0.16 148);
+  --good-bg: oklch(0.79 0.16 148 / 12%);
+  --good-border: oklch(0.79 0.16 148 / 28%);
+  --good-solid: #0ca30c;
+  --warn: oklch(0.84 0.14 85);
+  --warn-bg: oklch(0.84 0.14 85 / 12%);
+  --warn-border: oklch(0.84 0.14 85 / 28%);
+  --warn-solid: #fab219;
+  --serious: oklch(0.78 0.13 48);
+  --serious-bg: oklch(0.78 0.13 48 / 13%);
+  --serious-border: oklch(0.78 0.13 48 / 30%);
+  --serious-solid: #ec835a;
+  --critical: oklch(0.74 0.16 24);
+  --critical-bg: oklch(0.74 0.16 24 / 13%);
+  --critical-border: oklch(0.74 0.16 24 / 32%);
+  --critical-solid: #e05252;
+  --info: oklch(0.76 0.12 255);
+  --info-bg: oklch(0.76 0.12 255 / 13%);
+  --info-border: oklch(0.76 0.12 255 / 30%);
+  --info-solid: #3987e5;
+
+  --ghs: #e2383d;
+
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
+  --chart-3: #199e70;
+  --chart-4: #c98500;
+  --chart-5: #d55181;
+  --chart-6: #0ca30c;
+  --chart-7: #9085e9;
+  --chart-8: #e66767;
+  --chart-grid: oklch(1 0 0 / 8%);
+  --chart-neutral: oklch(0.5 0.015 255);
+
+  --sidebar: oklch(0.155 0.011 258);
+  --sidebar-foreground: oklch(0.86 0.01 250);
+  --sidebar-primary: oklch(0.93 0.008 250);
+  --sidebar-primary-foreground: oklch(0.2 0.02 258);
+  --sidebar-accent: oklch(0.235 0.015 258);
+  --sidebar-accent-foreground: oklch(0.95 0.006 250);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.66 0.15 257);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-sidebar text-foreground;
+    font-feature-settings: "ss01", "cv05";
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--brand) 22%, transparent);
+  }
+  /* quantities and dates line up in columns */
+  .tabular,
+  table td,
+  table th {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* identifiers: CAS numbers, document IDs, UN numbers */
+  .ident {
+    font-family: var(--font-plex-mono), ui-monospace, monospace;
+    font-size: 0.92em;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+  /* rows and list items that open something */
+  .row-hover {
+    transition: background-color 150ms var(--ease-out-quint);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .row-hover:hover {
+      background-color: var(--subtle);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* the report preview prints as a document: only the sheet, no app chrome */
+@media print {
+  body {
+    background: #fff !important;
+  }
+  [data-print="hide"],
+  [data-slot="sidebar"],
+  [data-slot="sidebar-gap"],
+  [data-slot="sidebar-container"],
+  header[data-app-header] {
+    display: none !important;
+  }
+  [data-print="sheet"] {
+    box-shadow: none !important;
+    border: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+  [data-slot="sidebar-inset"] {
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+  /* the app scrolls inside a fixed frame on screen; on paper it must flow */
+  html,
+  body,
+  [data-slot="sidebar-wrapper"],
+  [data-slot="sidebar-inset"],
+  [data-scroll-root] {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
